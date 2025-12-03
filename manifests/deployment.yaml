@@ -2,6 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitops-node-app
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: node=ghcr.io/jenishcloudengineer/gitops-node-app
+    argocd-image-updater.argoproj.io/node.update-strategy: latest
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
 spec:
   replicas: 1
   selector:
@@ -14,7 +19,6 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: ghcr.io/jenishcloudengineer/gitops-node-app:92f175e90b0c43279702af2a4239c03072769e4a
+        image: ghcr.io/jenishcloudengineer/gitops-node-app:latest
         ports:
         - containerPort: 3000
-
