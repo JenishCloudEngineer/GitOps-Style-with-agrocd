@@ -1,0 +1,31 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and Push Image (SHA + latest)
+        run: |
+          USER_LOWER=$(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower:]')
+
+          SHA_IMAGE=ghcr.io/$USER_LOWER/gitops-node-app:${{ github.sha }}
+          LATEST_IMAGE=ghcr.io/$USER_LOWER/gitops-node-app:latest
+
+          docker build -t $SHA_IMAGE ./app
+          docker tag $SHA_IMAGE $LATEST_IMAGE
+
+          docker push $SHA_IMAGE
+          docker push $LATEST_IMAGE
+
+          echo "IMAGE_TAG=$SHA_IMAGE" >> $GITHUB_ENV

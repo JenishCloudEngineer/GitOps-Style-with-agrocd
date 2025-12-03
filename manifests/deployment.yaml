@@ -2,11 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitops-node-app
-  annotations:
-    argocd-image-updater.argoproj.io/node-app.image: ghcr.io/jenishcloudengineer/gitops-node-app
-    argocd-image-updater.argoproj.io/node-app.update-strategy: latest
-    argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/git-branch: main
 spec:
   replicas: 1
   selector:
