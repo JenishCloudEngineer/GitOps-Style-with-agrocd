@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: gitops-node-app
   annotations:
+
     argocd-image-updater.argoproj.io/image-list: node=ghcr.io/jenishcloudengineer/gitops-node-app
     argocd-image-updater.argoproj.io/node.update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: git
