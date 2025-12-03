@@ -1,17 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gitops-node-app
+  name: gitops-app
   namespace: argocd
 spec:
   project: default
+
   source:
     repoURL: https://github.com/JenishCloudEngineer/GitOps-Style-with-argocd.git
-    targetRevision: HEAD
+    targetRevision: main
     path: manifests
+
   destination:
     server: https://kubernetes.default.svc
     namespace: default
+
   syncPolicy:
     automated:
       prune: true
@@ -19,5 +22,3 @@ spec:
     syncOptions:
       - ApplyOutOfSyncOnly=true
       - ServerSideApply=true
-      - PruneLast=true
-      - Replace=true
