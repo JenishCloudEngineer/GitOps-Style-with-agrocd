@@ -22,7 +22,7 @@ jobs:
           SHA_IMAGE=ghcr.io/$USER_LOWER/gitops-node-app:${{ github.sha }}
           LATEST_IMAGE=ghcr.io/$USER_LOWER/gitops-node-app:latest
 
-          docker build -t $SHA_IMAGE .
+          docker build -t $SHA_IMAGE ./GitOps-app
           docker tag $SHA_IMAGE $LATEST_IMAGE
 
           docker push $SHA_IMAGE
