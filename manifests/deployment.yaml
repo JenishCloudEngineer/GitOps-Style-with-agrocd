@@ -20,5 +20,6 @@ spec:
       containers:
       - name: node-app
         image: ghcr.io/jenishcloudengineer/gitops-node-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
